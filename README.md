@@ -90,7 +90,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 UDOFIA ABASIODONG - Twitter: [@enalsy2](https://twitter.com/enalsy2) - enalsy22@gmail.com
 
-hosted link: [https://github.com/udofia2/coding-assessment-test](https://github.com/udofia2/coding-assessment-test)
+Heroku hosted link: [https://udofia-crud.herokuapp.com](https://udofia-crud.herokuapp.com)
 
 Project Link: [https://github.com/udofia2/coding-assessment-test](https://github.com/udofia2/coding-assessment-test)
 
