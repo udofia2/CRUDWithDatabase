@@ -3,6 +3,8 @@ const express = require('express')
 
 const app = express()
 
+require('./utils/database')()
+
 app.use((req, res, next) => {
   res.status(404).send(`Sorry, can't find ${req.url}`)
   next()
