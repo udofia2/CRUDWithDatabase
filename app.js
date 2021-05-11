@@ -5,8 +5,20 @@ const app = express()
 
 require('./utils/database')()
 
+app.use(express.json());
+app.use(express.urlencoded({
+  extended: true
+}));
+
+
+app.use('/', require('./routes/itemRouter'))
+
+
 app.use((req, res, next) => {
-  res.status(404).send(`Sorry, can't find ${req.url}`)
+  res.status(404).json({
+    message: 'fail',
+    data: `Sorry, can't find ${req.url}`
+  })
   next()
 })
 
