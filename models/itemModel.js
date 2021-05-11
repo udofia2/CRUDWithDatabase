@@ -4,14 +4,18 @@ const {
   Schema
 } = mongoose
 
-const Item = new Schema({
+const Data = new Schema({
   name: {
+    type: String,
+    require: true,
+  },
+  email: {
     type: String,
     require: true,
     unique: true,
     index: true
   },
-  description: {
+  country: {
     type: String,
     require: true
   }
@@ -19,4 +23,4 @@ const Item = new Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('items', Item)
+module.exports = mongoose.model('datas', Data)

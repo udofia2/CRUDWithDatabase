@@ -1,25 +1,25 @@
-const itemHandler = (Items, validationResult) => {
+const dataHandler = (Datas, validationResult) => {
   /**
    * @param       GET /
    * @desc        displays all the Items
    * @access      public( Every one can access)
    */
 
-  const items = async (req, res) => {
+  const data = async (req, res) => {
     try {
-      const total = await Items.countDocuments();
-      const items = await Items.find({});
+      const total = await Datas.countDocuments();
+      const data = await Datas.find({});
       res.status(200).json({
         message: 'sucess',
         data: {
-          "Total Items": total,
-          items: (total < 1) ? "No Items Created" : items
+          "Total Data": total,
+          data: (total < 1) ? "No Data Created" : data
         },
       });
     } catch (err) {
       res.json({
         message: 'fail',
-        data: err
+        Error: err
       });
     }
   };
@@ -27,11 +27,11 @@ const itemHandler = (Items, validationResult) => {
 
   /**
    * @param       POST /
-   * @desc        Create a new Item
+   * @desc        Create a new Data
    * @access      public( Every one can access)
    */
 
-  const createItem = async (req, res) => {
+  const createData = async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -42,35 +42,34 @@ const itemHandler = (Items, validationResult) => {
 
     try {
 
-      console.log(req.body)
-
       const {
         name,
-        description
+        email,
+        country
       } = req.body;
 
-      const item = new Items({
+      const data = new Datas({
         name,
-        description
+        email,
+        country
       });
-      await item.save((err, item) => {
+      await data.save((err, data) => {
 
         //duplicate key
         if (err) {
           console.log(err)
           if (err.code === 11000) return res.json({
             message: 'fail',
-            data: 'No data',
-            Error: `${err.keyValue.name} already exist`
+            Error: `${err.keyValue.email} already exist`
           })
-          throw new Error('item not saved')
+          throw new Error('Data not saved')
         }
 
-        console.log('item has been saved')
+        console.log('Data has been saved')
 
         res.status(202).json({
           message: 'sucess',
-          data: item
+          data: data
         });
       });
 
@@ -78,18 +77,18 @@ const itemHandler = (Items, validationResult) => {
       console.log(err)
       res.status(500).json({
         message: 'fail',
-        data: err
+        Error: err
       });
     }
   };
 
   /**
    * @param       DELETE /
-   * @desc        Deletes an item from the database
+   * @desc        Deletes data from the database
    * @access      public( Every one can access)
    */
 
-  const deleteItem = async (req, res) => {
+  const deleteData = async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -101,18 +100,18 @@ const itemHandler = (Items, validationResult) => {
     try {
 
       const {
-        name
+        email
       } = req.body
 
-      const item = await Items.findOne({
-        name
+      await Datas.findOne({
+        email
       }, (err, i) => {
 
         if (i !== null) i.delete()
 
         return res.json({
           message: (i === null) ? 'fail' : 'success',
-          data: (i === null) ? `${name} doesn't exist` : `${name} successfully deleted`,
+          data: (i === null) ? `${email} doesn't exist` : `${email} successfully deleted`,
         })
       })
 
@@ -120,7 +119,6 @@ const itemHandler = (Items, validationResult) => {
 
       return res.status(500).json({
         message: 'fail',
-        data: "No data",
         Error: err
       })
 
@@ -130,11 +128,11 @@ const itemHandler = (Items, validationResult) => {
 
   /**
    * @param       PATCH /
-   * @desc        Edits an existing item
+   * @desc        Update an existing data
    * @access      public( Every one can access)
    */
 
-  const editItem = async (req, res) => {
+  const updateData = async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -146,44 +144,52 @@ const itemHandler = (Items, validationResult) => {
     try {
 
       const {
-        name
+        name,
+        email,
+        country
       } = req.body
 
-      const item = await Items.findOne({
+      await Datas.findOne({
         _id: req.params.itemID
-      }, async (err, item) => {
-        if (item !== null) {
+      }, async (err, data) => {
+        if (data === null) {
+          console.log(req.params)
+          return res.json({
+            message: 'fail',
+            data: `The ID [${req.params.itemID}] provided  in the param doesn't exist`
+          })
+        }
 
-          await Items.updateOne({}, {
+          await Datas.updateOne({}, {
             $set: {
-              name: (req.body.name) ? req.body.name : item.name,
-              description: (req.body.description) ? req.body.description : item.description,
+              name: (name) ? name : data.name,
+              email: (email) ? email : data.email,
+              country: (country) ? country : data.country,
             }
           })
 
-        }
-
       })
+
       res.json({
         message: 'success',
-        data: `item edited successfully`
+        data: `data updated successfully`
       })
 
     } catch (err) {
-      return res.status(500).json({
-        message: 'fail',
-        data: "No data",
-        Error: err
-      })
+
+      // res.status(500).json({
+      //   message: 'fail',
+      //   Error: err
+      // })
     }
   }
 
   return {
-    items,
-    createItem,
-    deleteItem,
-    editItem
+    data,
+    createData,
+    deleteData,
+    updateData
   };
 };
 
-module.exports = itemHandler;
+module.exports = dataHandler;

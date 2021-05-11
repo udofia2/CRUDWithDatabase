@@ -1,20 +1,30 @@
 const validation = (check) => {
-  const itemIputCheck = [
+  const dataInputCheck = [
     check("name")
     .not().isEmpty()
     .withMessage('Name is required'),
-    check("description")
+
+    check('email')
+    .isEmail()
+    .normalizeEmail()
     .not().isEmpty()
-    .withMessage('Description is required'),
+    .withMessage('Email is required'),
+
+    check("country")
+    .not().isEmpty()
+    .withMessage('Country is required'),
   ]
 
   const nameMustBeProvided = [
-    check("name")
+    check("email")
+    .isEmail()
+    .normalizeEmail()
     .not().isEmpty()
-    .withMessage('Please provide the name of the item you want to delete'),
+    .withMessage('Please provide the email of the data you want to delete'),
   ]
+
   return {
-    itemIputCheck,
+    dataInputCheck,
     nameMustBeProvided
   };
 };

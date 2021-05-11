@@ -11,7 +11,7 @@ app.use(express.urlencoded({
 }));
 
 
-app.use('/', require('./routes/itemRouter'))
+app.use('/', require('./routes/dataRouter'))
 
 
 app.use((req, res, next) => {
@@ -20,6 +20,7 @@ app.use((req, res, next) => {
     data: `Sorry, can't find ${req.url}`
   })
   next()
+  // console.log(req)
 })
 
 app.listen(parseInt(process.env.PORT), () => console.log(`Server is connected on ${parseInt(process.env.PORT)}`))
