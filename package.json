@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["CRUD", "API", "data", "Zuri" ],
+  "author": "UDOFIA ABASIODIONG",
+  "license": "MIT",
   "dependencies": {
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
@@ -18,5 +19,9 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
-  }
+  },
+"engines": {
+  "node": "15.x"
+}
+
 }
