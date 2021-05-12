@@ -41,7 +41,7 @@ To use this app in a your local environment, you need to install.
 
 2. Fork the repo
    ```sh
-   git clone https://github.com/udofia2/coding-assessment-test
+   git clone https://github.com/udofia2/CRUDWithDatabase
    ```
 3. Install NPM packages
    ```sh
@@ -94,7 +94,7 @@ Heroku hosted link: [https://udofia-crud.herokuapp.com](https://udofia-crud.hero
 
 Documentation Link: [Documentation](https://documenter.getpostman.com/view/7592361/TzRU9mg2)_
 
-Project Link: [https://github.com/udofia2/coding-assessment-test](https://github.com/udofia2/coding-assessment-test)
+Project Link: [https://github.com/udofia2/CRUDWithDatabase](https://github.com/udofia2/CRUDWithDatabase)
 
 ## ScreenShoots
 
